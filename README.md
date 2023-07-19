@@ -9,12 +9,6 @@ It contains basic configurations for the following:
 - Husky (pre-commit hooks to run linting, typechecking, and commit message format)
 - GitHub Actions (CI/CD)
 
-## Possible future changes
-
-- Enforcing commit messages format
-- Switching bundler to ESBuild, SWC, or Babel
-- Deployment to AWS Lambda or Google Cloud Functions
-
 ## Commands
 
 Install dependencies:
