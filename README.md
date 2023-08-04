@@ -5,7 +5,7 @@ It contains basic configurations for the following:
 - TypeScript (typechecking and building)
 - Eslint (linting)
 - Prettier (formatting)
-- Jest (testing)
+- Jest/Supertest (testing)
 - Husky (pre-commit hooks to run linting, typechecking, and commit message format)
 - GitHub Actions (CI/CD)
 
