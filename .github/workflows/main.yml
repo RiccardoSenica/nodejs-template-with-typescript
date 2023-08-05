@@ -6,6 +6,8 @@ env:
   POSTGRES_DATABASE: ${{ secrets.POSTGRES_DATABASE }}
   POSTGRES_USERNAME: ${{ secrets.POSTGRES_USERNAME }}
   POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+  POSTGRES_HOST: postgres
+  POSTGRES_PORT: 5432
 
 jobs:
   lint:
@@ -57,11 +59,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - run: sudo systemctl start postgresql.service
-      - run: sudo -u postgres psql --command="CREATE USER ${{ env.POSTGRES_USERNAME }} PASSWORD '${{ env.POSTGRES_PASSWORD }}'" --command="\du"
-      - run: sudo -u postgres createdb ${{ env.POSTGRES_DATABASE }} --owner=${{ env.POSTGRES_USERNAME }} PGPASSWORD=${{ env.POSTGRES_PASSWORD }}
+      - run: psql --host=${{ env.POSTGRES_HOST }} --port=${{ env.POSTGRES_PORT }} --username=postgres --command="CREATE USER ${{ env.POSTGRES_USERNAME }} PASSWORD '${{ env.POSTGRES_PASSWORD }}'" --command="\du"
+      - run: psql --host=${{ env.POSTGRES_HOST }} --port=${{ env.POSTGRES_PORT }} --username=postgres --command="CREATE DATABASE ${{ env.POSTGRES_DATABASE }} OWNER ${{ env.POSTGRES_USERNAME }}"
       - env:
-          DATABASE_URL: postgres://${{ secrets.POSTGRES_USERNAME }}:${{ secrets.POSTGRES_PASSWORD }}@postgres:5432/${{ secrets.POSTGRES_DATABASE }}
+          DATABASE_URL: postgres://${{ secrets.POSTGRES_USERNAME }}:${{ secrets.POSTGRES_PASSWORD }}@${{ env.POSTGRES_HOST }}:${{ env.POSTGRES_PORT }}/${{ secrets.POSTGRES_DATABASE }}
         run: |
           echo "DATABASE_URL=${DATABASE_URL}" > .env
           cat .env
