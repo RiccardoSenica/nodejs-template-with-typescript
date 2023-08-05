@@ -55,7 +55,7 @@ jobs:
         with:
           node-version: 18
       - env:
-          DATABASE_URL: postgres://${{ env.POSTGRES_USERNAME }}:${{ env.POSTGRES_PASSWORD }}@0.0.0.0:5432/${{ env.POSTGRES_DATABASE }}
+          DATABASE_URL: postgres://${{ env.POSTGRES_USERNAME }}:${{ env.POSTGRES_PASSWORD }}@localhost:5432/${{ env.POSTGRES_DATABASE }}
           #DATABASE_URL: postgres://${{ env.POSTGRES_USERNAME }}:${{ env.POSTGRES_PASSWORD }}@${{ env.POSTGRES_HOST }}:${{ env.POSTGRES_PORT }}/${{ env.POSTGRES_DATABASE }}
         run: |
           echo "DATABASE_URL=${DATABASE_URL}" > .env
