@@ -59,6 +59,7 @@ jobs:
         run: |
           echo "DATABASE_URL=${DATABASE_URL}" > .env
       - run: yarn
+      - run: yarn db:generate
       - run: yarn db:migrate
       - run: yarn test
   build:
