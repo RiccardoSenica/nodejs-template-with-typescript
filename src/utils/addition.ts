@@ -8,5 +8,7 @@ import { logger } from './logger';
  */
 export async function addition(value: number) {
   logger.info(`addition(${value})`);
+  await createAddition(value);
+
   return value + 1;
 }
