@@ -13,7 +13,10 @@
     "typecheck": "tsc",
     "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "test": "jest --runInBand --detectOpenHandles",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate deploy",
+    "db:reset": "prisma migrate reset --force"
   },
   "lint-staged": {
     "*.ts": [
