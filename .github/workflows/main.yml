@@ -6,7 +6,7 @@ env:
   POSTGRES_DATABASE: ${{ secrets.POSTGRES_DATABASE }}
   POSTGRES_USERNAME: ${{ secrets.POSTGRES_USERNAME }}
   POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-  POSTGRES_HOST: postgres
+  POSTGRES_HOST: localhost
   POSTGRES_PORT: 5432
 
 jobs:
@@ -39,7 +39,6 @@ jobs:
       - run: yarn audit
   test:
     runs-on: ubuntu-latest
-    # container: node:lts
     services:
       postgres:
         image: postgres:15.3
@@ -55,14 +54,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      #- run: sudo systemctl start postgresql.service
-      #- run: sudo -u postgres psql --command="CREATE USER ${{ env.POSTGRES_USERNAME }} PASSWORD '${{ env.POSTGRES_PASSWORD }}'" --command="\du"
-      #- run: sudo -u postgres createdb ${{ env.POSTGRES_DATABASE }} --owner=${{ env.POSTGRES_USERNAME }} PGPASSWORD=${{ env.POSTGRES_PASSWORD }}
       - env:
-          DATABASE_URL: postgres://${{ secrets.POSTGRES_USERNAME }}:${{ secrets.POSTGRES_PASSWORD }}@0.0.0.0:5432/${{ secrets.POSTGRES_DATABASE }}
+          DATABASE_URL: postgres://${{ secrets.POSTGRES_USERNAME }}:${{ secrets.POSTGRES_PASSWORD }}@${{ secrets.POSTGRES_HOST }}:${{ secrets.POSTGRES_PORT }}/${{ secrets.POSTGRES_DATABASE }}
         run: |
           echo "DATABASE_URL=${DATABASE_URL}" > .env
-          cat .env
       - run: yarn
       - run: yarn db:migrate
       - run: yarn test
