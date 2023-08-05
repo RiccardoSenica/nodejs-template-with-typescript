@@ -12,14 +12,28 @@ It contains basic configurations for the following:
 
 # Environment Variables
 
-- PORT - The port to run the server on
-- `DATABASE_URL` - The URL to the database, formatted as `postgres://<username>:<password>@<host>:<port>/<database>`
+Need to export the following environment variables:
+
+- PORT - The port to run the server on (defaults to 3000)
+- DATABASE_URL - The URL to the database, formatted as `postgres://<username>:<password>@<host>:<port>/<database>`
 
 ## Commands
 
 Install dependencies:
 
 `yarn`
+
+Generate Prisma client:
+
+`yarn db:generate`
+
+Run the migrations:
+
+`yarn db:migrate`
+
+Reset the database:
+
+`yarn db:reset`
 
 Audit:
 
@@ -60,3 +74,7 @@ Run:
 To commit a WIP skipping checks:
 
 `git commit -m "WIP: <message>" --no-verify`
+
+To run it using Docker, running the server on port 3000:
+
+`docker-compose up --build`
