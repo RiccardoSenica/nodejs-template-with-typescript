@@ -7,6 +7,7 @@ It contains basic configurations for the following:
 - Prettier (formatting)
 - Jest/Supertest (testing)
 - Husky (pre-commit hooks to run linting, typechecking, and commit message format)
+- Winston (logging)
 - GitHub Actions (CI/CD)
 
 ## Commands

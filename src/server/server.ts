@@ -4,6 +4,7 @@ import express, { Request, Response } from 'express';
 import helmet from 'helmet';
 import { Validator } from 'jsonschema';
 import { addition } from '../utils/addition';
+import { logger } from '../utils/logger';
 
 const server = express();
 server.use(cors());
@@ -22,6 +23,7 @@ const schema = {
 };
 
 server.post('/', (req: Request, res: Response) => {
+  logger.info(`POST / with ${JSON.stringify(req.body)}`);
   if (!validator.validate(req.body, schema).valid) {
     return res.status(400).json({ message: 'Malformed query parameters' });
   }
