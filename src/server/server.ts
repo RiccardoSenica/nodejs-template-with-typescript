@@ -1,6 +1,7 @@
 import * as bodyParser from 'body-parser';
 import cors from 'cors';
 import express, { Request, Response } from 'express';
+import helmet from 'helmet';
 import { Validator } from 'jsonschema';
 import { addition } from '../utils/addition';
 
@@ -8,6 +9,7 @@ const server = express();
 server.use(cors());
 server.use(express.json());
 server.use(bodyParser.json());
+server.use(helmet());
 
 const validator = new Validator();
 const schema = {
