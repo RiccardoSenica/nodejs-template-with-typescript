@@ -42,9 +42,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - run: sudo systemctl start postgresql.service pg_isready
+      - run: sudo systemctl start postgresql.service
       - run: sudo -u postgres psql --command="CREATE USER ${{ env.POSTGRES_USERNAME }} PASSWORD '${{ env.POSTGRES_PASSWORD }}'" --command="\du"
-      - run: sudo -u postgres createdb ${{env.POSTGRES_DATABASE}} --owner=${{ env.POSTGRES_USERNAME }} PGPASSWORD=${{ env.POSTGRES_PASSWORD }}
+      - run: sudo -u postgres createdb ${{ env.POSTGRES_DATABASE }} --owner=${{ env.POSTGRES_USERNAME }} PGPASSWORD=${{ env.POSTGRES_PASSWORD }}
       - run: yarn
       - run: yarn test
   build:
