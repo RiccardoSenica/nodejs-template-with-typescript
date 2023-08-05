@@ -1,4 +1,5 @@
 import { createAddition } from '../database/database';
+import { logger } from './logger';
 
 /**
  * Increase the user imput value by one, and creates an Addition record with that value.
@@ -6,7 +7,6 @@ import { createAddition } from '../database/database';
  * @returns The value increased by one.
  */
 export async function addition(value: number) {
-  await createAddition(value);
-
+  logger.info(`addition(${value})`);
   return value + 1;
 }
