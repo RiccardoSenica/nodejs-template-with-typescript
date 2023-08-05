@@ -2,6 +2,11 @@ name: Pipeline
 
 on: [push]
 
+env:
+  POSTGRES_DATABASE: ${{ secrets.POSTGRES_DATABASE }}
+  POSTGRES_USERNAME: ${{ secrets.POSTGRES_USERNAME }}
+  POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -37,6 +42,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
+      - run: sudo systemctl start postgresql.service pg_isready
+      - run: sudo -u postgres psql --command="CREATE USER ${{ env.POSTGRES_USERNAME }} PASSWORD '${{ env.POSTGRES_PASSWORD }}'" --command="\du"
+      - run: sudo -u postgres createdb ${{env.POSTGRES_DATABASE}} --owner=${{ env.POSTGRES_USERNAME }} PGPASSWORD=${{ env.POSTGRES_PASSWORD }}
       - run: yarn
       - run: yarn test
   build:
