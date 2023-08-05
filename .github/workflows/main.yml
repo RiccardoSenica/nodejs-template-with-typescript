@@ -37,6 +37,7 @@ jobs:
       - run: yarn audit
   test:
     runs-on: ubuntu-latest
+    container: node:lts
     services:
       # Label used to access the service container
       postgres:
