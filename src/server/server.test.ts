@@ -1,15 +1,9 @@
 import requests from 'supertest';
 import server from './server';
 
-beforeAll(() => {
-  jest.mock('../utils/addition', () => ({
-    addition: jest.fn((value: number) => value + 1)
-  }));
-});
-
-afterAll(() => {
-  jest.clearAllMocks();
-});
+jest.mock('../utils/addition', () => ({
+  addition: jest.fn((value: number) => value + 1)
+}));
 
 describe('server', () => {
   it('returns input value increased by one', async () => {

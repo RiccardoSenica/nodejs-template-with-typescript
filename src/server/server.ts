@@ -22,14 +22,18 @@ const schema = {
   required: ['value']
 };
 
-server.post('/', (req: Request, res: Response) => {
+server.post('/', async (req: Request, res: Response) => {
   logger.info(`POST / with ${JSON.stringify(req.body)}`);
   if (!validator.validate(req.body, schema).valid) {
     return res.status(400).json({ message: 'Malformed query parameters' });
   }
 
+  const { value } = req.body;
+
+  const result = await addition(value);
+
   return res.json({
-    response: addition(parseInt(req.body.value))
+    response: result
   });
 });
 

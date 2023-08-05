@@ -1,8 +1,17 @@
+import { randomUUID } from 'crypto';
 import { addition } from './addition';
+
+jest.mock('../database/database', () => ({
+  createAddition: jest.fn((value: number) => ({
+    id: randomUUID(),
+    datetime: new Date(),
+    value
+  }))
+}));
 
 describe('call', () => {
   it('returns the input value increased by one', async () => {
-    const response = addition(3);
+    const response = await addition(3);
 
     expect(response).toBe(4);
   });

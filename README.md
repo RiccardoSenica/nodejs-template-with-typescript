@@ -10,6 +10,11 @@ It contains basic configurations for the following:
 - Winston (logging)
 - GitHub Actions (CI/CD)
 
+# Environment Variables
+
+- PORT - The port to run the server on
+- `DATABASE_URL` - The URL to the database, formatted as `postgres://<username>:<password>@<host>:<port>/<database>`
+
 ## Commands
 
 Install dependencies:
