@@ -9,6 +9,11 @@ It contains basic configurations for the following:
 - Husky (pre-commit hooks to run linting, typechecking, and commit message format)
 - GitHub Actions (CI/CD)
 
+# Environment Variables
+
+- PORT - The port to run the server on
+- `DATABASE_URL` - The URL to the database, formatted as `postgres://<username>:<password>@<host>:<port>/<database>`
+
 ## Commands
 
 Install dependencies:

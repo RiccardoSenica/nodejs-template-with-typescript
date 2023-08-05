@@ -1,8 +1,12 @@
+import { createAddition } from '../database/database';
+
 /**
- * Format a response message containing a user input.
+ * Increase the user imput value by one, and creates an Addition record with that value.
  * @param number - The user input value.
  * @returns The value increased by one.
  */
-export function addition(value: number) {
+export async function addition(value: number) {
+  await createAddition(value);
+
   return value + 1;
 }

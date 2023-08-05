@@ -10,7 +10,8 @@ const config: Config = {
   testMatch: ['**/*.test.ts'],
   transform: {
     '^.+\\.ts$': '@swc/jest'
-  }
+  },
+  setupFilesAfterEnv: ['./src/utils/clearDatabase.ts']
 };
 
 export default config;
