@@ -1,11 +1,13 @@
 name: Pipeline
+
 on: [push]
+
 env:
   POSTGRES_DATABASE: ${{ secrets.POSTGRES_DATABASE }}
   POSTGRES_USERNAME: ${{ secrets.POSTGRES_USERNAME }}
   POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-  POSTGRES_HOST: localhost
-  POSTGRES_PORT: 5432
+  POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+  POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
 
 jobs:
   lint:
