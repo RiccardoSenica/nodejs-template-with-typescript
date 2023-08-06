@@ -6,8 +6,8 @@ env:
   POSTGRES_DATABASE: ${{ secrets.POSTGRES_DATABASE }}
   POSTGRES_USERNAME: ${{ secrets.POSTGRES_USERNAME }}
   POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-  POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
-  POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
+  POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
+  POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
 
 jobs:
   lint:
@@ -55,7 +55,7 @@ jobs:
         with:
           node-version: 18
       - env:
-          DATABASE_URL: postgres://${{ secrets.POSTGRES_USERNAME }}:${{ secrets.POSTGRES_PASSWORD }}@${{ secrets.POSTGRES_HOST }}:${{ secrets.POSTGRES_PORT }}/${{ secrets.POSTGRES_DATABASE }}
+          DATABASE_URL: postgres://${{ env.POSTGRES_USERNAME }}:${{ env.POSTGRES_PASSWORD }}@${{ env.POSTGRES_HOST }}:${{ env.POSTGRES_PORT }}/${{ env.POSTGRES_DATABASE }}
         run: |
           echo "DATABASE_URL=${DATABASE_URL}" > .env
       - run: yarn
