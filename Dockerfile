@@ -1,19 +1,27 @@
-# Build the Node.js app
-FROM node:18 as builder
+# Development stage
+FROM node:18-alpine3.18 as builder
 
 WORKDIR /app
 
-# Copy package.json and package-lock.json (or yarn.lock) to the container
 COPY package*.json ./
 
-# Install project dependencies
-RUN yarn install
-
-# Copy the rest of the application code to the container
 COPY . .
 
-# Expose the port that your Node.js app is running on (change 3000 to your desired port)
+RUN yarn build
+
+# Production stage
+FROM node:18-slim
+
+RUN apt-get update && apt-get install -y openssl
+
+WORKDIR /app
+
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/yarn.lock ./
+COPY --from=builder /app/build ./build
+
+RUN yarn install --production
+
 EXPOSE 3000
 
-# Define the command to start your Node.js application
-CMD ["bash", "-c", "yarn db:generate && yarn db:migrate && yarn dev"]
+CMD ["bash", "-c", "yarn db:generate && yarn db:migrate && node build/index.js"]
