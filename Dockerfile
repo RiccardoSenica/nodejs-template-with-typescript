@@ -1,9 +1,10 @@
 # Development stage
-FROM node:18-alpine3.18 as builder
+FROM node:18 as builder
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY package*.json yarn.lock ./
+RUN yarn install --frozen-lockfile
 
 COPY . .
 
@@ -17,10 +18,10 @@ RUN apt-get update && apt-get install -y openssl
 WORKDIR /app
 
 COPY --from=builder /app/package*.json ./
-COPY --from=builder /app/yarn.lock ./
 COPY --from=builder /app/build ./build
+COPY --from=builder /app/prisma ./prisma
 
-RUN yarn install --production
+RUN yarn install --frozen-lockfile --production
 
 EXPOSE 3000
 

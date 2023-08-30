@@ -1,5 +1,5 @@
 {
-  "name": "node-with-typescript",
+  "name": "node-template-with-typescript",
   "version": "1.0.0",
   "description": "Backend with NodeJS in TypeScript",
   "main": "src/index.ts",
@@ -7,10 +7,11 @@
   "author": "riccardo.s@hey.com",
   "license": "MIT",
   "scripts": {
+    "start": "node build/index.js",
     "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
     "build": "tsc",
     "lint": "eslint --ext .ts . --fix",
-    "typecheck": "tsc",
+    "typecheck": "tsc --noEmit",
     "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "test": "jest --runInBand",
     "prepare": "husky install",

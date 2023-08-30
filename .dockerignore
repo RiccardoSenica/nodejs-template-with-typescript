@@ -1,0 +1,17 @@
+# Exclude locally installed packages
+node_modules/
+
+# Exclude build files
+.dockerignore
+Dockerfile
+
+# Exclude git history and configuration
+.gitignore
+
+# Exclude IDE configuration
+.husky
+.github
+.nvmrc
+.prettierrc
+commitlint.config.js
+jest.config.js
