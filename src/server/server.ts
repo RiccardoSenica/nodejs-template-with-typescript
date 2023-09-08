@@ -1,12 +1,20 @@
 import * as bodyParser from 'body-parser';
 import cors from 'cors';
 import express, { Request, Response } from 'express';
+import { rateLimit } from 'express-rate-limit';
 import session from 'express-session';
 import helmet from 'helmet';
 import { z } from 'zod';
 import { fromZodError } from 'zod-validation-error';
 import { addition } from '../utils/addition';
 import { logger } from '../utils/logger';
+
+const limiter = rateLimit({
+  windowMs: 10 * 60 * 1000,
+  max: 50,
+  standardHeaders: 'draft-7',
+  legacyHeaders: false
+});
 
 const server = express();
 server.use(cors());
@@ -19,6 +27,7 @@ server.use(
     name: 'sessionId'
   })
 );
+server.use(limiter);
 server.use(express.json());
 server.use(bodyParser.json());
 
