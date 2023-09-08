@@ -1,6 +1,7 @@
 import * as bodyParser from 'body-parser';
 import cors from 'cors';
 import express, { Request, Response } from 'express';
+import session from 'express-session';
 import helmet from 'helmet';
 import { z } from 'zod';
 import { fromZodError } from 'zod-validation-error';
@@ -9,9 +10,17 @@ import { logger } from '../utils/logger';
 
 const server = express();
 server.use(cors());
+server.use(helmet());
+server.disable('x-powered-by');
+server.set('trust proxy', 1);
+server.use(
+  session({
+    secret: 's3Cur3',
+    name: 'sessionId'
+  })
+);
 server.use(express.json());
 server.use(bodyParser.json());
-server.use(helmet());
 
 const schema = z.object({
   value: z.number()
