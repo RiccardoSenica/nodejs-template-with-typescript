@@ -3,5 +3,5 @@
 
 yarn audit
 yarn format
-yarn lint
+yarn lint-staged
 yarn typecheck
