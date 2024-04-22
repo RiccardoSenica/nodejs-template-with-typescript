@@ -1,4 +1,3 @@
-import * as bodyParser from 'body-parser';
 import cors from 'cors';
 import express, { Request, Response } from 'express';
 import { rateLimit } from 'express-rate-limit';
@@ -29,7 +28,6 @@ server.use(
 );
 server.use(limiter);
 server.use(express.json());
-server.use(bodyParser.json());
 
 const schema = z.object({
   value: z.number()
