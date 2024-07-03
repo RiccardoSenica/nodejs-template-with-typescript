@@ -5,6 +5,10 @@ jest.mock('../utils/addition', () => ({
   addition: jest.fn((value: number) => value + 1)
 }));
 
+afterEach(() => {
+  jest.restoreAllMocks();
+});
+
 describe('server', () => {
   it('returns input value increased by one', async () => {
     const value = 1;

@@ -9,6 +9,10 @@ jest.mock('../database/database', () => ({
   }))
 }));
 
+afterEach(() => {
+  jest.restoreAllMocks();
+});
+
 describe('call', () => {
   it('returns the input value increased by one', async () => {
     const response = await addition(3);
