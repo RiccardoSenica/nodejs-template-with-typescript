@@ -27,7 +27,11 @@ server.set('trust proxy', 1);
 server.use(
   session({
     secret: process.env.SECRET,
-    name: 'sessionId'
+    name: 'sessionId',
+    cookie: {
+      secure: process.env.ENVIRONMENT !== 'dev',
+      httpOnly: true
+    }
   })
 );
 server.use(limiter);
