@@ -8,6 +8,10 @@ import { fromZodError } from 'zod-validation-error';
 import { addition } from '../utils/addition';
 import { logger } from '../utils/logger';
 
+if (!process.env.SECRET) {
+  throw new Error('SECRET environment variable is required');
+}
+
 const limiter = rateLimit({
   windowMs: 10 * 60 * 1000,
   max: 50,
@@ -22,7 +26,7 @@ server.disable('x-powered-by');
 server.set('trust proxy', 1);
 server.use(
   session({
-    secret: 's3Cur3',
+    secret: process.env.SECRET,
     name: 'sessionId'
   })
 );
