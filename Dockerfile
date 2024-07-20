@@ -1,17 +1,17 @@
 # Development stage
-FROM node:18 as builder
+FROM node:20 as builder
 
 WORKDIR /app
 
 COPY package*.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+RUN yarn install
 
 COPY . .
 
 RUN yarn build
 
 # Production stage
-FROM node:18-slim
+FROM node:20-slim
 
 RUN apt-get update && apt-get install -y openssl
 
@@ -21,7 +21,7 @@ COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/build ./build
 COPY --from=builder /app/prisma ./prisma
 
-RUN yarn install --frozen-lockfile --production
+RUN yarn install --production
 
 EXPOSE 3000
 
