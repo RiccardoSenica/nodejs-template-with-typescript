@@ -41,6 +41,12 @@ const schema = z.object({
   value: z.number()
 });
 
+/**
+ * Handles POST requests to calculate addition
+ * @param req - Express request object
+ * @param res - Express response object
+ * @returns JSON response with calculated result
+ */
 server.post('/', async (req: Request, res: Response) => {
   logger.info(`POST / with ${JSON.stringify(req.body)}`);
 
