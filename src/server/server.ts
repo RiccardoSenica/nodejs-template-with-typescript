@@ -49,14 +49,14 @@ server.post('/', async (req: Request, res: Response) => {
   } catch (err) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const validationError = fromZodError(err as any);
-    return res.status(400).json({ message: validationError.message });
+    res.status(400).json({ message: validationError.message });
   }
 
   const { value } = req.body;
 
   const result = await addition(value);
 
-  return res.json({
+  res.json({
     response: result
   });
 });
